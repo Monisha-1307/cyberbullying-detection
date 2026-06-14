@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 # ------------------ DATABASE CONFIG ------------------
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'database.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('postgresql://cyberbullying_db_6pqg_user:1ObJv7Ohefm2piPPkciJGGKGEnxvm12F@dpg-d8ndkgrtqb8s73d2lr70-a/cyberbullying_db_6pqg')
 
 # ✅ SECRET_KEY from environment variable (fallback to defaultsecret)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'defaultsecret')

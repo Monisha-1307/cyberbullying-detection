@@ -10,7 +10,10 @@ app = Flask(__name__)
 # ------------------ DATABASE CONFIG ------------------
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'database.db')
-app.config['SECRET_KEY'] = 'secret'
+
+# ✅ SECRET_KEY from environment variable (fallback to defaultsecret)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'defaultsecret')
+
 db = SQLAlchemy(app)
 
 login_manager = LoginManager(app)
@@ -128,4 +131,6 @@ with app.app_context():
     db.create_all()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+

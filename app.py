@@ -126,6 +126,16 @@ def logout():
     flash("You have been logged out successfully!", "success")
     return redirect(url_for('login'))
 
+# ------------------ DEBUG ROUTE ------------------
+@app.route('/debug')
+def debug():
+    users = User.query.all()
+    posts = Post.query.all()
+    return {
+        "users": [(u.id, u.username, u.role) for u in users],
+        "posts": [(p.id, p.text, p.result) for p in posts]
+    }
+
 # Ensure tables exist before running
 with app.app_context():
     db.create_all()
